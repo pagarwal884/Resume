@@ -1,29 +1,40 @@
-import { dockApps } from "#/constants";
 import React, { useRef } from "react";
-import { Tooltip } from "react-tooltip";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { Tooltip } from "react-tooltip";
+
+import { dockApps } from "#/constants";
 
 const Dock = () => {
+  // Reference to the dock container
   const dockRef = useRef(null);
 
   useGSAP(() => {
-    const dock = dockRef.current;
-    if (!dock) return;
+    const dockElement = dockRef.current;
 
-    const icons = dock.querySelectorAll(".dock-icon");
+    if (!dockElement) return;
 
+    // Select all dock icons
+    const dockIcons = dockElement.querySelectorAll(".dock-icon");
+
+    // Animate icons based on mouse position
     const animateIcons = (mouseX) => {
-      const { left } = dock.getBoundingClientRect();
+      const { left: dockLeft } = dockElement.getBoundingClientRect();
 
-      icons.forEach((icon) => {
-        const { left: iconLeft, width } = icon.getBoundingClientRect();
+      dockIcons.forEach((icon) => {
+        const { left: iconLeft, width: iconWidth } =
+          icon.getBoundingClientRect();
 
-        const center = iconLeft - left + width / 2;
-        const distance = Math.abs(mouseX - center);
+        // Find the center of the icon
+        const iconCenter = iconLeft - dockLeft + iconWidth / 2;
 
+        // Calculate distance between mouse and icon
+        const distance = Math.abs(mouseX - iconCenter);
+
+        // Convert distance into animation intensity
         const intensity = Math.exp(-(distance ** 2) / 2000);
 
+        // Animate the icon
         gsap.to(icon, {
           scale: 1 + 0.25 * intensity,
           y: -15 * intensity,
@@ -33,13 +44,16 @@ const Dock = () => {
       });
     };
 
-    const handleMouseMove = (e) => {
-      const { left } = dock.getBoundingClientRect();
-      animateIcons(e.clientX - left);
+    // Mouse move inside dock
+    const handleMouseMove = (event) => {
+      const { left: dockLeft } = dockElement.getBoundingClientRect();
+
+      animateIcons(event.clientX - dockLeft);
     };
 
+    // Reset icons when mouse leaves
     const handleMouseLeave = () => {
-      icons.forEach((icon) => {
+      dockIcons.forEach((icon) => {
         gsap.to(icon, {
           scale: 1,
           y: 0,
@@ -49,17 +63,20 @@ const Dock = () => {
       });
     };
 
-    dock.addEventListener("mousemove", handleMouseMove);
-    dock.addEventListener("mouseleave", handleMouseLeave);
+    // Add event listeners
+    dockElement.addEventListener("mousemove", handleMouseMove);
+    dockElement.addEventListener("mouseleave", handleMouseLeave);
 
+    // Cleanup event listeners
     return () => {
-      dock.removeEventListener("mousemove", handleMouseMove);
-      dock.removeEventListener("mouseleave", handleMouseLeave);
+      dockElement.removeEventListener("mousemove", handleMouseMove);
+      dockElement.removeEventListener("mouseleave", handleMouseLeave);
     };
   });
 
+  // Handle icon click
   const toggleApp = (app) => {
-    // Open window Logic
+    // Open window logic
   };
 
   return (
@@ -75,7 +92,9 @@ const Dock = () => {
               data-tooltip-content={name}
               data-tooltip-delay-show={100}
               disabled={!canOpen}
-              onClick={() => toggleApp({ id, name, icon, canOpen })}
+              onClick={() =>
+                toggleApp({ id, name, icon, canOpen })
+              }
             >
               <img
                 src={`/images/${icon}`}
@@ -87,7 +106,11 @@ const Dock = () => {
           </div>
         ))}
 
-        <Tooltip id="dock-tooltip" place="top" className="tooltip" />
+        <Tooltip
+          id="dock-tooltip"
+          place="top"
+          className="tooltip"
+        />
       </div>
     </section>
   );

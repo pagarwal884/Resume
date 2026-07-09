@@ -3,7 +3,7 @@ import gsap from "gsap";
 
 const FONT_WEIGHTS = {
   subtitle: { min: 100, max: 400, default: 100 },
-  title: { min: 400, max: 900, default: 400 },
+  title: { min: 400, max: 700, default: 400 },
 };
 
 const renderText = (text, className, baseWeight = 400) => {
@@ -46,7 +46,7 @@ const setupTextHover = (container, type) => {
 
       const distance = Math.abs(e.clientX - containerRect.left - centerX);
 
-      const radius = 150;
+      const radius = 180;
 
       const influence = Math.max(0, 1 - distance / radius);
 

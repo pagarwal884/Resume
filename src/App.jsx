@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from './Components/Navbar'
 import Welcome from './Components/Welcome'
+import Dock from './Components/Dock'
 
 
 const App = () => {
@@ -8,6 +9,7 @@ const App = () => {
     <main>
       <Navbar />
       <Welcome />
+      <Dock />
     </main>
   )
 }

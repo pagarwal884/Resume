@@ -4,44 +4,74 @@ import { immer } from "zustand/middleware/immer";
 
 const useWindowStore = create(
   immer((set) => ({
-    // State
     windows: WINDOW_CONFIG,
     nextZindex: INITIAL_Z_INDEX + 1,
 
-    // Open a window
     openWindow: (windowKey, data = null) =>
       set((state) => {
         const win = state.windows[windowKey];
 
-        // Stop if the window doesn't exist
         if (!win) return;
 
         win.isOpen = true;
+        win.isMinimized = false;
         win.zIndex = state.nextZindex;
         win.data = data ?? win.data;
 
         state.nextZindex++;
       }),
 
-    // Close a window
     closeWindow: (windowKey) =>
       set((state) => {
         const win = state.windows[windowKey];
 
-        // Stop if the window doesn't exist
         if (!win) return;
 
         win.isOpen = false;
+        win.isMinimized = false;
+        win.isMaximized = false;
         win.zIndex = INITIAL_Z_INDEX;
         win.data = null;
       }),
 
-    // Bring a window to the front
+    minimizeWindow: (windowKey) =>
+      set((state) => {
+        const win = state.windows[windowKey];
+
+        if (!win) return;
+
+        win.isMinimized = true;
+      }),
+
+    restoreWindow: (windowKey) =>
+      set((state) => {
+        const win = state.windows[windowKey];
+
+        if (!win) return;
+
+        win.isMinimized = false;
+        win.isOpen = true;
+        win.zIndex = state.nextZindex;
+
+        state.nextZindex++;
+      }),
+
+    maximizeWindow: (windowKey) =>
+      set((state) => {
+        const win = state.windows[windowKey];
+
+        if (!win) return;
+
+        win.isMaximized = !win.isMaximized;
+        win.zIndex = state.nextZindex;
+
+        state.nextZindex++;
+      }),
+
     focusWindow: (windowKey) =>
       set((state) => {
         const win = state.windows[windowKey];
 
-        // Stop if the window doesn't exist
         if (!win) return;
 
         win.zIndex = state.nextZindex;

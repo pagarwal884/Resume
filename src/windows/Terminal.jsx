@@ -1,13 +1,14 @@
 import React from "react";
 import WindowWrapper from "#/hoc/WindowWrapper";
 import { techStack } from "#/constants";
-import { Check } from "lucide-react";
+import { Check, Flag } from "lucide-react";
+import WindowControls from "#/Components/WindowControls";
 
 const Terminal = () => {
   return (
-    <>
-      <div className="window-header">
-        <p>Window Controls</p>
+    <div>
+      <div id="window-header" >
+        <WindowControls target="terminal"/>
         <h2>Terminal</h2>
       </div>
 
@@ -32,14 +33,28 @@ const Terminal = () => {
 
               <ul>
                 {items.map((item, i) => (
-                  <li key={i}>{item}</li>
+                  <li key={i}>
+                    {item}
+                    {i < items.length - 1 ? "," : ""}
+                  </li>
                 ))}
               </ul>
             </li>
           ))}
         </ul>
+
+        <div className="footnote">
+          <p>
+            <Check size={20} /> 5 of 5 stack loaded successfully (100%)
+          </p>
+
+          <p>
+            <Flag size={15} fill="black" />
+            Render time: 6ms
+          </p>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

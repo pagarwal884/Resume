@@ -6,6 +6,7 @@ import Navbar from "./Components/Navbar";
 import Welcome from "./Components/Welcome";
 import Dock from "./Components/Dock";
 import TerminalWindow from "./windows/Terminal";
+import Safari from "./windows/Safari";
 
 gsap.registerPlugin(Draggable);
 
@@ -17,6 +18,7 @@ const App = () => {
       <Dock />
 
       <TerminalWindow />
+      <Safari />
     </main>
   );
 };

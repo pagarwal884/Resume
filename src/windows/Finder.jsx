@@ -35,18 +35,11 @@ const Finder = () => {
   const openItem = (item) => {
     if (!item) return;
 
-    switch (item.fileType) {
-      case "folder":
-        setActiveLocation(item);
-        break;
+    if(item.fileType === 'pdf') return openWindow("resume")
+    if(item.kind === 'folder') return setActiveLocation(item)
+    if(['fig', 'url'].includes(item.fileType) && item.href) return window.open(item.href, "_blank")
 
-      case "pdf":
-        openWindow("resume");
-        break;
-
-      default:
-        break;
-    }
+    openWindow(`${item.fileType}${item.kind}`, item)
   };
 
   return (

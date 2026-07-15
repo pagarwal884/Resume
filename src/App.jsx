@@ -12,6 +12,7 @@ import Finder from "./windows/Finder";
 import TextFileWindow from "./windows/Text";
 import ImageFileWindow from "./windows/Image";
 import Contact from "./windows/Contact";
+import Gallery from "./windows/Gallery";
 import Home from "./Components/Home";
 
 
@@ -31,6 +32,7 @@ const App = () => {
       <TextFileWindow />
       <ImageFileWindow />
       <Contact />
+      <Gallery />
       <Home />
     </main>
   );

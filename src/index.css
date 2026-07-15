@@ -208,6 +208,50 @@ body {
     }
   }
 
+  #txtfile {
+    @apply w-xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+
+    .txt-content {
+      @apply flex flex-col gap-5 p-6 bg-white;
+    }
+
+    .txt-image {
+      @apply w-full h-auto max-h-56 object-contain rounded-lg;
+    }
+
+    .txt-body {
+      @apply space-y-3 text-sm text-gray-700;
+    }
+
+    .txt-subtitle {
+      @apply text-base font-semibold text-gray-900;
+    }
+
+    .txt-paragraphs {
+      @apply space-y-3 leading-6;
+    }
+  }
+
+  #imgfile {
+    @apply w-xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+
+    .img-content {
+      @apply flex flex-col gap-4 p-4 bg-white;
+    }
+
+    .img-image {
+      @apply w-full h-full max-h-96 object-contain rounded-lg bg-gray-50;
+    }
+
+    .img-body {
+      @apply px-1 pb-1;
+    }
+
+    .img-subtitle {
+      @apply text-sm font-semibold text-gray-800;
+    }
+  }
+
   #contact {
     @apply max-w-2xl absolute top-60 left-5/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
